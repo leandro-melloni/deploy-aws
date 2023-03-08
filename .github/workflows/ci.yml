@@ -9,8 +9,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          path: .github/actions/deploy-aws
       - name: Deploy AWS
-        uses: ./
+        uses: ./.github/actions/deploy-aws
         with:
           technology: 'Infrastructure as Code'
           aws-function: 'EC2'
