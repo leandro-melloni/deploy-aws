@@ -1,0 +1,16 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-aws:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deploy AWS
+        uses: ./
+        with:
+          technology: 'Infrastructure as Code'
+          aws-function: 'EC2'

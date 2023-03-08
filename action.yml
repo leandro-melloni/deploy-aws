@@ -1,0 +1,18 @@
+name: 'Deploy AWS'
+description: 'Deploy AWS'
+inputs:
+  technology:
+    description: 'The technology to deploy (e.g. Infrastructure as Code, Serverless, CodeDeploy, etc.)'
+    required: true
+    default: 'Infrastructure as Code'
+  aws-function:
+    description: 'The AWS function to deploy (e.g. "EC2", "Lambda", "S3", Terraform, CloudFormation, etc.)'
+    required: true
+    default: 'EC2'
+outputs:
+  aws-function:
+    description: 'The AWS function to deploy'
+    value: ${{ inputs.aws-function }}
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
