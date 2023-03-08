@@ -2503,6 +2503,8 @@ async function run() {
 
     // Get the function name
     core.setOutput('aws-function', awsFunction);
+    core.log("A tecnologia usada e: " + technology);
+    core.log("A funcao usada e: " + awsFunction);
   }
   catch (error) {
     core.setFailed(error.message);
