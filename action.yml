@@ -12,7 +12,6 @@ inputs:
 outputs:
   aws-function:
     description: 'The AWS function to deploy'
-    value: ${{ inputs.aws-function }}
 runs:
   using: 'node16'
   main: 'dist/index.js'
