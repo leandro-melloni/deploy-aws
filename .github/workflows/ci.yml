@@ -14,5 +14,5 @@ jobs:
       - name: Deploy AWS
         uses: ./.github/actions/deploy-aws
         with:
-          technology: 'iac'
-          aws-function: 'cloudformation'
+          technology: 'IAC'
+          aws-function: 'Cloudformation'
