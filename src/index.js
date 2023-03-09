@@ -3,8 +3,8 @@ const core = require('@actions/core');
 async function run() {
   try {
     // Get inputs
-    const technology = core.getInput('technology', { required: true });
-    const awsFunction = core.getInput('aws-function', { required: true });
+    let technology = core.getInput('technology', { required: true }).toLowerCase();
+    let awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' && awsFunction == 'cloudformation') {
       console.log('Valid technology and aws-function inputs'); 
