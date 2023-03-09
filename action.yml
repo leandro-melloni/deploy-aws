@@ -2,13 +2,11 @@ name: 'Deploy AWS'
 description: 'Deploy AWS'
 inputs:
   technology:
-    description: 'The technology to deploy (e.g. Infrastructure as Code, Serverless, CodeDeploy, etc.)'
+    description: 'The technology to deploy (e.g. IAC, Serverless, CodeDeploy, etc.)'
     required: true
-    default: 'Infrastructure as Code'
   aws-function:
     description: 'The AWS function to deploy (e.g. "EC2", "Lambda", "S3", Terraform, CloudFormation, etc.)'
     required: true
-    default: 'EC2'
 outputs:
   aws-function:
     description: 'The AWS function to deploy'
