@@ -15,4 +15,4 @@ jobs:
         uses: ./.github/actions/deploy-aws
         with:
           technology: 'iac'
-          aws-function: 'ec2'
+          aws-function: 'cloudformation'
