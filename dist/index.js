@@ -2184,6 +2184,7 @@ module.exports = require("http");
 
 const util = __webpack_require__(669);
 const exec = util.promisify(__webpack_require__(129).exec);
+
 function lsWithGrep() {
   try {
       const { stdout, stderr } = exec('ls | grep js');
@@ -2193,7 +2194,7 @@ function lsWithGrep() {
   }catch (err) {
      return err;
   };
-};
+}
 
 
 /***/ }),

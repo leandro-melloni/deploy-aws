@@ -1,5 +1,6 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+
 function lsWithGrep() {
   try {
       const { stdout, stderr } = exec('ls | grep js');
@@ -9,4 +10,4 @@ function lsWithGrep() {
   }catch (err) {
      return err;
   };
-};
+}
