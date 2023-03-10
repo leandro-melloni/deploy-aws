@@ -9,9 +9,15 @@ async function run() {
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
-      const response = await terraform.invokeTerraform();
-      console.log(response);
-      console.log('Finished ' + technology + ' with ' + awsFunction);
+      if (awsFunction == 'terraform') {
+        const response = await terraform.invokeTerraform();
+        console.log(response);
+        console.log('Finished ' + technology + ' with ' + awsFunction);
+      } else if (awsFunction == 'cloudformation') {
+        console.log('Finished ' + technology + ' with ' + awsFunction);
+      } else {
+        throw new Error('Invalid aws-function input');
+      }
     } else {    
         throw new Error('Invalid technology or aws-function input');
     }
