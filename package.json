@@ -27,6 +27,8 @@
         "@zeit/ncc": "^0.22.3",
         "eslint": "^8.35.0",
         "eslint-plugin-react": "^7.32.2",
-        "jest": "^29.5.0"
+        "jest": "^29.5.0",
+        "util":"0.12.5",
+        "child_process": "1.0.2"
     }
 }

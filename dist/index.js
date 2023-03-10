@@ -337,6 +337,13 @@ exports.prepareKeyValueMessage = prepareKeyValueMessage;
 
 /***/ }),
 
+/***/ 129:
+/***/ (function(module) {
+
+module.exports = require("child_process");
+
+/***/ }),
+
 /***/ 141:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -2172,6 +2179,24 @@ module.exports = require("http");
 
 /***/ }),
 
+/***/ 612:
+/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+
+const util = __webpack_require__(669);
+const exec = util.promisify(__webpack_require__(129).exec);
+async function lsWithGrep() {
+  try {
+      const { stdout, stderr } = await exec('ls | grep js');
+      console.log('stdout:', stdout);
+      console.log('stderr:', stderr);
+  }catch (err) {
+     console.error(err);
+  };
+};
+
+
+/***/ }),
+
 /***/ 614:
 /***/ (function(module) {
 
@@ -2494,6 +2519,7 @@ module.exports = require("util");
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470);
+const terraform = __webpack_require__(612);
 
 async function run() {
   try {
@@ -2502,7 +2528,8 @@ async function run() {
     let awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' && awsFunction == 'cloudformation') {
-      console.log('Valid technology and aws-function inputs'); 
+      console.log('Valid configuration, inicitalizing' + technology + 'with' + awsFunction);
+      terraform.lsWithGrep();
     } else {    
         throw new Error('Invalid technology or aws-function input');
     }

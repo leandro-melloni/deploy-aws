@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const terraform = require('./modules/terraform.js');
 
 async function run() {
   try {
@@ -7,7 +8,8 @@ async function run() {
     let awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' && awsFunction == 'cloudformation') {
-      console.log('Valid technology and aws-function inputs'); 
+      console.log('Valid configuration, inicitalizing' + technology + 'with' + awsFunction);
+      terraform.lsWithGrep();
     } else {    
         throw new Error('Invalid technology or aws-function input');
     }
