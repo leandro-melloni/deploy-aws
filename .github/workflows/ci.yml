@@ -23,4 +23,4 @@ jobs:
         uses: ./.github/actions/deploy-aws
         with:
           technology: 'IAC'
-          aws-function: 'Cloudformation'
+          aws-function: 'Terraform'
