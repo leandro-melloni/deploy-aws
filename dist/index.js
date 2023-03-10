@@ -2534,8 +2534,8 @@ async function run() {
     const awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
-      console.log('Valid configuration, inicitalizing' + technology + 'with' + awsFunction);
-      terraform.lsWithGrep();
+      console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
+      await terraform.lsWithGrep();
     } else {    
         throw new Error('Invalid technology or aws-function input');
     }
