@@ -1,13 +1,12 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-async function lsWithGrep(awsFunction) {
+async function lsWithGrep() {
   try {
-      const test = awsFunction;
-      //const { stdout, stderr } = await exec('ls | grep js');
+      const { stdout, stderr } = await exec('ls | grep js');
       //console.log('stdout:', stdout);
       //console.log('stderr:', stderr);
-      return test;
+      return stdout;
   }catch (err) {
      return err;
   };

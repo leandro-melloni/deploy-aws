@@ -2185,13 +2185,12 @@ module.exports = require("http");
 const util = __webpack_require__(669);
 const exec = util.promisify(__webpack_require__(129).exec);
 
-async function lsWithGrep(awsFunction) {
+async function lsWithGrep() {
   try {
-      const test = awsFunction;
-      //const { stdout, stderr } = await exec('ls | grep js');
+      const { stdout, stderr } = await exec('ls | grep js');
       //console.log('stdout:', stdout);
       //console.log('stderr:', stderr);
-      return test;
+      return stdout;
   }catch (err) {
      return err;
   };
@@ -2536,7 +2535,7 @@ async function run() {
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
-      const response = await terraform.lsWithGrep(awsFunction);
+      const response = await terraform.lsWithGrep();
       console.log(response);
       console.log('Finished ' + technology + ' with ' + awsFunction);
     } else {    
