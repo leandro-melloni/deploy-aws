@@ -7,7 +7,7 @@ async function run() {
     const technology = core.getInput('technology', { required: true }).toLowerCase();
     const awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
 
-    if (technology == 'iac' && ( awsFunction == 'terraform' ||  awsFunction == 'cloudformation')) {
+    if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing' + technology + 'with' + awsFunction);
       let response  = terraform.lsWithGrep(); 
       console.log(response);
