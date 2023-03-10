@@ -4,12 +4,12 @@ const terraform = require('./modules/terraform.js');
 async function run() {
   try {
     // Get inputs
-    let technology = core.getInput('technology', { required: true }).toLowerCase();
-    let awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
+    const technology = core.getInput('technology', { required: true }).toLowerCase();
+    const awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
 
-    if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' && awsFunction == 'cloudformation') {
+    if (technology == 'iac' && ( awsFunction == 'terraform' ||  awsFunction == 'cloudformation')) {
       console.log('Valid configuration, inicitalizing' + technology + 'with' + awsFunction);
-      let response  = terraform.lsWithGrep();
+      let response  = terraform.lsWithGrep(); 
       console.log(response);
     } else {    
         throw new Error('Invalid technology or aws-function input');

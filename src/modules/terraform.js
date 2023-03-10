@@ -11,3 +11,7 @@ function lsWithGrep() {
      return err;
   };
 }
+
+module.exports = {
+    lsWithGrep
+};

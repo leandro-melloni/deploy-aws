@@ -2180,7 +2180,7 @@ module.exports = require("http");
 /***/ }),
 
 /***/ 612:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 const util = __webpack_require__(669);
 const exec = util.promisify(__webpack_require__(129).exec);
@@ -2195,6 +2195,10 @@ function lsWithGrep() {
      return err;
   };
 }
+
+module.exports = {
+    lsWithGrep
+};
 
 
 /***/ }),
@@ -2526,12 +2530,12 @@ const terraform = __webpack_require__(612);
 async function run() {
   try {
     // Get inputs
-    let technology = core.getInput('technology', { required: true }).toLowerCase();
-    let awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
+    const technology = core.getInput('technology', { required: true }).toLowerCase();
+    const awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
 
-    if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' && awsFunction == 'cloudformation') {
+    if (technology == 'iac' && ( awsFunction == 'terraform' ||  awsFunction == 'cloudformation')) {
       console.log('Valid configuration, inicitalizing' + technology + 'with' + awsFunction);
-      let response  = terraform.lsWithGrep();
+      let response  = terraform.lsWithGrep(); 
       console.log(response);
     } else {    
         throw new Error('Invalid technology or aws-function input');
