@@ -8,8 +8,8 @@ async function invokeTerraform() {
       //console.log('stderr:', stderr);
       return stdout;
   }catch (err) {
-      console.error(err);
-      return 1;
+      throw new Error(err);
+      
   };
 }
 

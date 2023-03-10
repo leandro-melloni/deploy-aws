@@ -1,5 +1,5 @@
-const core = require('@actions/core');
-const terraform = require('./modules/terraform.js');
+import * as core from '@actions/core';
+import * as terraform from './modules/terraform.js';
 
 async function run() {
   try {
