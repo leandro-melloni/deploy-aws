@@ -2184,7 +2184,7 @@ module.exports = require("http");
 /***/ 612:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-const { stderr } = __webpack_require__(765);
+const { stderr, stdout } = __webpack_require__(765);
 const util = __webpack_require__(669);
 
 const exec = util.promisify(__webpack_require__(129).exec);
@@ -2193,11 +2193,12 @@ async function invokeTerraform(terraformCMD, terraformArgs) {
   try {
       if ( terraformCMD == 'init' ) {
         const { stdout, stderr } = await exec('terraform ' + terraformCMD);
+        console.log(stdout);
       } else {
         const { stdout, stderr } = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+        console.log(stdout);
       }
-      console.log(stdout);
-      return response;
+      return stdout;
   }catch (err) {
       throw new Error(err);
   };
@@ -2545,8 +2546,8 @@ async function run() {
     // Get inputs
     const technology = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('technology', { required: true }).toLowerCase();
     const awsFunction = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('aws-function', { required: true }).toLowerCase();
-    const terraformCMD = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-cmd', { required: true }).toLowerCase();
-    const terraformArgs = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-args', { required: true }).toLowerCase();
+    const terraformCMD = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-cmd').toLowerCase();
+    const terraformArgs = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-args').toLowerCase();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
