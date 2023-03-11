@@ -2557,7 +2557,7 @@ async function run() {
     }
 
     // Get the function name
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('aws-function', awsFunction);
+    // core.setOutput('aws-function', awsFunction);
     console.log("A tecnologia usada e: " + technology);
     console.log("A funcao usada e: " + awsFunction);
   }

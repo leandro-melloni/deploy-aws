@@ -22,7 +22,7 @@ async function run() {
     }
 
     // Get the function name
-    core.setOutput('aws-function', awsFunction);
+    // core.setOutput('aws-function', awsFunction);
     console.log("A tecnologia usada e: " + technology);
     console.log("A funcao usada e: " + awsFunction);
   }
