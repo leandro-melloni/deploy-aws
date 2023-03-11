@@ -2189,7 +2189,7 @@ const exec = util.promisify(__webpack_require__(129).exec);
 
 async function invokeTerraform(terraformCMD, terraformArgs) {
   try {
-    const init = await exec('terraform ' + terraformCMD);
+    const init = await exec('terraform ' + init);
     console.log(init);
     const { stdout, stderr } = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
     console.log(stdout);
