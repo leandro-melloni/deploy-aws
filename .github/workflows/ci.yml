@@ -24,3 +24,5 @@ jobs:
         with:
           technology: 'IAC'
           aws-function: 'Terraform'
+          terraform-cmd: 'init'
+          terraform-args: ''
