@@ -16,7 +16,7 @@ async function invokeTerraform(terraformCMD, terraformArgs) {
 
 async function commandTerraform(terraformCMD, terraformArgs) {
   try {
-    const { stdout, stderr } = await exec('terraform ' + terraformCMD + terraformArgs);
+    const { stdout, stderr } = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
     console.log(stdout);
     return stdout;
   }catch (err) {
