@@ -2546,7 +2546,6 @@ async function run() {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
       if (awsFunction == 'terraform') {
         const response = await _modules_terraform_js__WEBPACK_IMPORTED_MODULE_1__.invokeTerraform();
-        console.log(response);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else if (awsFunction == 'cloudformation') {
         console.log('Finished ' + technology + ' with ' + awsFunction);

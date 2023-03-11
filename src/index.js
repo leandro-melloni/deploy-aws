@@ -11,7 +11,6 @@ async function run() {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
       if (awsFunction == 'terraform') {
         const response = await terraform.invokeTerraform();
-        console.log(response);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else if (awsFunction == 'cloudformation') {
         console.log('Finished ' + technology + ' with ' + awsFunction);
