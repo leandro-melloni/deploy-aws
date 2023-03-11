@@ -2194,9 +2194,15 @@ async function invokeTerraform(terraformCMD, terraformArgs) {
       if ( terraformCMD == 'init' ) {
         const { stdout, stderr } = await exec('terraform ' + terraformCMD);
         console.log(stdout);
+        if (stderr != null) {
+          console.log(stderr);
+        }
       } else {
         const { stdout, stderr } = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
         console.log(stdout);
+        if (stderr != null) {
+          console.log(stderr);
+        }
       }
       return stdout;
   }catch (err) {
