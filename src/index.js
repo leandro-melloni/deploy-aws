@@ -6,11 +6,13 @@ async function run() {
     // Get inputs
     const technology = core.getInput('technology', { required: true }).toLowerCase();
     const awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
+    const terraformCMD = core.getInput('terraform-cmd', { required: true }).toLowerCase();
+    const terraformArgs = core.getInput('terraform-args', { required: true }).toLowerCase();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
       if (awsFunction == 'terraform') {
-        const response = await terraform.invokeTerraform();
+        await terraform.invokeTerraform(terraformCMD, terraformArgs);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else if (awsFunction == 'cloudformation') {
         console.log('Finished ' + technology + ' with ' + awsFunction);

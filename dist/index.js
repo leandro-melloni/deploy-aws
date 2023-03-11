@@ -2186,16 +2186,27 @@ module.exports = require("http");
 
 const { stderr } = __webpack_require__(765);
 const util = __webpack_require__(669);
+
 const exec = util.promisify(__webpack_require__(129).exec);
 
-async function invokeTerraform() {
+async function invokeTerraform(terraformCMD, terraformArgs) {
   try {
       const { stdout, stderr } = await exec('terraform init');
       console.log(stdout);
-      return stdout;
+      const response = await commandTerraform(terraformCMD, terraformArgs);
+      return response;
   }catch (err) {
       throw new Error(err);
-      
+  };
+}
+
+async function commandTerraform(terraformCMD, terraformArgs) {
+  try {
+    const { stdout, stderr } = await exec('terraform ' + terraformCMD + terraformArgs);
+    console.log(stdout);
+    return stdout;
+  }catch (err) {
+      throw new Error(err);
   };
 }
 
@@ -2541,11 +2552,13 @@ async function run() {
     // Get inputs
     const technology = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('technology', { required: true }).toLowerCase();
     const awsFunction = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('aws-function', { required: true }).toLowerCase();
+    const terraformCMD = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-cmd', { required: true }).toLowerCase();
+    const terraformArgs = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-args', { required: true }).toLowerCase();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
       if (awsFunction == 'terraform') {
-        const response = await _modules_terraform_js__WEBPACK_IMPORTED_MODULE_1__.invokeTerraform();
+        await _modules_terraform_js__WEBPACK_IMPORTED_MODULE_1__.invokeTerraform(terraformCMD, terraformArgs);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else if (awsFunction == 'cloudformation') {
         console.log('Finished ' + technology + ' with ' + awsFunction);

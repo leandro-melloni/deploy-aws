@@ -7,6 +7,14 @@ inputs:
   aws-function:
     description: 'The AWS function to deploy (e.g. "EC2", "Lambda", "S3", Terraform, CloudFormation, etc.)'
     required: true
+  terraform-cmd:
+    required: false
+    default: 'plan'
+    description: 'The Terraform command to run (e.g. "plan", "apply", "destroy", etc.)'
+  terraform-args:
+    required: false
+    default: '-var-file=terraform.tfvars'
+    description: 'The Terraform arguments to pass to the command (e.g. "-var-file=terraform.tfvars")'
   
 outputs:
   aws-function:
