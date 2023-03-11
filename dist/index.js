@@ -2184,27 +2184,20 @@ module.exports = require("http");
 /***/ 612:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-const { stderr, stdout } = __webpack_require__(765);
 const util = __webpack_require__(669);
-
 const exec = util.promisify(__webpack_require__(129).exec);
 
 async function invokeTerraform(terraformCMD, terraformArgs) {
   try {
-      if ( terraformCMD == 'init' ) {
-        const { stdout, stderr } = await exec('terraform ' + terraformCMD);
-        console.log(stdout);
-        if (stderr != null) {
-          console.log(stderr);
-        }
-      } else {
-        const { stdout, stderr } = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
-        console.log(stdout);
-        if (stderr != null) {
-          console.log(stderr);
-        }
-      }
-      return stdout;
+    const init = await exec('terraform ' + terraformCMD);
+    console.log(init);
+    const { stdout, stderr } = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+    console.log(stdout);
+    if (stderr != null) {
+      console.log(stderr);
+    }
+      
+    return stdout;
   }catch (err) {
       throw new Error(err);
   };
@@ -2744,13 +2737,6 @@ exports.OidcClient = OidcClient;
 /***/ (function(module) {
 
 module.exports = require("fs");
-
-/***/ }),
-
-/***/ 765:
-/***/ (function(module) {
-
-module.exports = require("process");
 
 /***/ }),
 
