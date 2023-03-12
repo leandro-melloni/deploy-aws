@@ -1,6 +1,5 @@
 import * as core from '@actions/core';
 import * as terraform from './modules/terraform.js';
-import * as cloudformation from './modules/cloudformation.js';
 
 async function run() {
   try {
@@ -17,7 +16,6 @@ async function run() {
         await terraform.invokeTerraform(terraformCMD, terraformArgs);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else if (awsFunction == 'cloudformation') {
-        await cloudformation.activateType(awsRegion);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else {
         throw new Error('Invalid aws-function input');
