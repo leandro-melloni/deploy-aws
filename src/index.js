@@ -1,12 +1,15 @@
 import * as core from '@actions/core';
-import * as inputs from './modules/inputs.js';
 import * as terraform from './modules/terraform.js';
 import * as cloudformation from './modules/cloudformation.js';
 
 async function run() {
   try {
-    // Get the inputs
-    const { technology, awsFunction, awsRegion, terraformCMD, terraformArgs } = inputs.getInpus();
+    // Get inputs
+    const technology = core.getInput('technology', { required: true }).toLowerCase();
+    const awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
+    const awsRegion = core.getInput('aws-region', { required: true }).toLowerCase();
+    const terraformCMD = core.getInput('terraform-cmd').toLowerCase();
+    const terraformArgs = core.getInput('terraform-args').toLowerCase();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
