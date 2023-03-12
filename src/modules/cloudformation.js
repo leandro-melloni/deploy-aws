@@ -8,7 +8,7 @@ import {
 export async function activateType(awsRegion, stackName, template, roleARN, cloudformationCMD) {
     try {
         const clientConfiguration = {
-            customUserAgent: 'aws-cloudformation-github-deploy-for-github-actions'
+            customUserAgent: 'deploy-aws'
         };
         const cloudformation = new aws.CloudFormation({ region: awsRegion, ...clientConfiguration });
         const { GITHUB_WORKSPACE = __dirname } = process.env;

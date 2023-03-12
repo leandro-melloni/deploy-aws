@@ -41,4 +41,4 @@ jobs:
           aws-function: 'CloudFormation'
           aws-region: 'us-east-1'
           cloudformation-cmd: 'deploy'
-          cloudformation-args: '--capabilities CAPABILITY_IAM'
+          cloudformation-template: '.'
