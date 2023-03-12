@@ -24,15 +24,9 @@ jobs:
         with:
           technology: 'IAC'
           aws-function: 'Terraform'
+          aws-region: 'us-east-1'
           terraform-cmd: 'init'
           terraform-args: ''
-      - name: Deploy AWS - CloudFormation
-        uses: ./.github/actions/deploy-aws
-        with:
-          technology: 'IAC'
-          aws-function: 'CloudFormation'
-          cloudformation-cmd: 'deploy'
-          cloudformation-args: '--capabilities CAPABILITY_IAM'
   deploy-aws-cloudformation:
     runs-on: ubuntu-latest
     steps:
@@ -45,5 +39,6 @@ jobs:
         with:
           technology: 'IAC'
           aws-function: 'CloudFormation'
+          aws-region: 'us-east-1'
           cloudformation-cmd: 'deploy'
           cloudformation-args: '--capabilities CAPABILITY_IAM'
