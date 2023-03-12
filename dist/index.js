@@ -40,7 +40,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(676);
+/******/ 		return __webpack_require__(917);
 /******/ 	};
 /******/ 	// initialize runtime
 /******/ 	runtime(__webpack_require__);
@@ -2528,56 +2528,6 @@ module.exports = require("util");
 
 /***/ }),
 
-/***/ 676:
-/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(470);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _modules_terraform_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(612);
-/* harmony import */ var _modules_terraform_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_modules_terraform_js__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-async function run() {
-  try {
-    // Get inputs
-    const technology = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('technology', { required: true }).toLowerCase();
-    const awsFunction = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('aws-function', { required: true }).toLowerCase();
-    const awsRegion = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('aws-region', { required: true }).toLowerCase();
-    const terraformCMD = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-cmd').toLowerCase();
-    const terraformArgs = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-args').toLowerCase();
-
-    if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
-      console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
-      if (awsFunction == 'terraform') {
-        await _modules_terraform_js__WEBPACK_IMPORTED_MODULE_1__.invokeTerraform(terraformCMD, terraformArgs);
-        console.log('Finished ' + technology + ' with ' + awsFunction);
-      } else if (awsFunction == 'cloudformation') {
-        console.log('Finished ' + technology + ' with ' + awsFunction);
-      } else {
-        throw new Error('Invalid aws-function input');
-      }
-    } else {    
-        throw new Error('Invalid technology or aws-function input');
-    }
-
-    // Get the function name
-    // core.setOutput('aws-function', awsFunction);
-    console.log("A tecnologia usada e: " + technology);
-    console.log("A funcao usada e: " + awsFunction);
-  }
-  catch (error) {
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);
-  }
-}
-
-run();
-
-
-/***/ }),
-
 /***/ 695:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -2914,6 +2864,80 @@ function v1(options, buf, offset) {
 var _default = v1;
 exports.default = _default;
 
+/***/ }),
+
+/***/ 917:
+/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __webpack_require__(470);
+
+// CONCATENATED MODULE: ./src/modules/inputs.js
+
+
+async function getInputs() {
+    try {
+        // Get inputs
+        const technology = Object(core.getInput)('technology', { required: true }).toLowerCase();
+        const awsFunction = Object(core.getInput)('aws-function', { required: true }).toLowerCase();
+        const awsRegion = Object(core.getInput)('aws-region', { required: true }).toLowerCase();
+        const terraformCMD = Object(core.getInput)('terraform-cmd').toLowerCase();
+        const terraformArgs = Object(core.getInput)('terraform-args').toLowerCase();
+
+        return {
+            technology,
+            awsFunction,
+            awsRegion,
+            terraformCMD,
+            terraformArgs
+        };
+    } catch (error) {
+        Object(core.setFailed)(error.message);
+    }
+}
+// EXTERNAL MODULE: ./src/modules/terraform.js
+var terraform = __webpack_require__(612);
+
+// CONCATENATED MODULE: ./src/index.js
+
+
+
+
+async function run() {
+  try {
+    // Get inputs
+    const { technology, awsFunction, awsRegion, terraformCMD, terraformArgs } = await getInputs();
+
+    if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
+      console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
+      if (awsFunction == 'terraform') {
+        await Object(terraform.invokeTerraform)(terraformCMD, terraformArgs);
+        console.log('Finished ' + technology + ' with ' + awsFunction);
+      } else if (awsFunction == 'cloudformation') {
+        console.log('Finished ' + technology + ' with ' + awsFunction);
+      } else {
+        throw new Error('Invalid aws-function input');
+      }
+    } else {    
+        throw new Error('Invalid technology or aws-function input');
+    }
+
+    // Get the function name
+    // core.setOutput('aws-function', awsFunction);
+    console.log("A tecnologia usada e: " + technology);
+    console.log("A funcao usada e: " + awsFunction);
+  }
+  catch (error) {
+    Object(core.setFailed)(error.message);
+  }
+}
+
+run();
+
+
 /***/ })
 
 /******/ },
@@ -2931,6 +2955,36 @@ exports.default = _default;
 /******/ 		};
 /******/ 	}();
 /******/ 	
+/******/ 	/* webpack/runtime/define property getter */
+/******/ 	!function() {
+/******/ 		// define getter function for harmony exports
+/******/ 		var hasOwnProperty = Object.prototype.hasOwnProperty;
+/******/ 		__webpack_require__.d = function(exports, name, getter) {
+/******/ 			if(!hasOwnProperty.call(exports, name)) {
+/******/ 				Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/create fake namespace object */
+/******/ 	!function() {
+/******/ 		// create a fake namespace object
+/******/ 		// mode & 1: value is a module id, require it
+/******/ 		// mode & 2: merge all properties of value into the ns
+/******/ 		// mode & 4: return value when already ns object
+/******/ 		// mode & 8|1: behave like require
+/******/ 		__webpack_require__.t = function(value, mode) {
+/******/ 			if(mode & 1) value = this(value);
+/******/ 			if(mode & 8) return value;
+/******/ 			if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 			var ns = Object.create(null);
+/******/ 			__webpack_require__.r(ns);
+/******/ 			Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 			if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 			return ns;
+/******/ 		};
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	!function() {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
@@ -2940,17 +2994,6 @@ exports.default = _default;
 /******/ 				function getModuleExports() { return module; };
 /******/ 			__webpack_require__.d(getter, 'a', getter);
 /******/ 			return getter;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getter */
-/******/ 	!function() {
-/******/ 		// define getter function for harmony exports
-/******/ 		var hasOwnProperty = Object.prototype.hasOwnProperty;
-/******/ 		__webpack_require__.d = function(exports, name, getter) {
-/******/ 			if(!hasOwnProperty.call(exports, name)) {
-/******/ 				Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 			}
 /******/ 		};
 /******/ 	}();
 /******/ 	
