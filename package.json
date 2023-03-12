@@ -21,7 +21,7 @@
     "author": "Leandro Melloni Valle",
     "dependencies": {
         "@actions/core": "^1.10.0",
-        "aws-sdk": "2.1259.0",
+        "aws-sdk": "^2.1035.0",
         "tmp": "^0.2.1",
         "util": "0.12.5"
     },

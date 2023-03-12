@@ -6,7 +6,10 @@ import * as cloudformation from './modules/cloudformation.js';
 async function run() {
   try {
     // Get inputs
-    const { technology, awsFunction, awsRegion, terraformCMD, terraformArgs } = await inputs.getInputs();
+    const { 
+      technology, awsFunction, awsRegion, terraformCMD, terraformArgs, cloudformationCMD,
+      cloudformationTemplate, cloudformationCustomStackName, cloudformationCustomRoleArn 
+    } = await inputs.getInputs();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
@@ -14,7 +17,22 @@ async function run() {
         await terraform.invokeTerraform(terraformCMD, terraformArgs);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else if (awsFunction == 'cloudformation') {
-        await cloudformation.activateType(awsRegion);
+        let stackName;
+        let roleARN;
+
+        if ( cloudformationCustomStackName == '') {
+          stackName = core.getInput('GITHUB_REPOSITORY').replace('/', '-');
+        } else {
+          stackName = cloudformationCustomStackName;
+        }
+        if (cloudformationCustomRoleArn == '') {
+          roleARN = 'arn:aws:iam::' + core.getInput('AWS_ACCOUNT_ID') + ':role/' + core.getInput('AWS_ROLE_NAME');
+        } else {
+          roleARN = cloudformationCustomRoleArn;
+        }
+        await cloudformation.activateType(
+          awsRegion, stackName, cloudformationCMD, cloudformationTemplate, roleARN
+        );
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else {
         throw new Error('Invalid aws-function input');

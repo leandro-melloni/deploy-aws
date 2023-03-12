@@ -21,11 +21,17 @@ inputs:
   cloudformation-cmd:
     required: false
     default: 'deploy'
-    description: 'The CloudFormation command to run (e.g. "deploy", "create", "update", "delete", etc.)'
-  cloudformation-args:
+    description: 'The CloudFormation command to run (e.g. "deploy", "update", "delete", etc.)'
+  cloudformation-template:
     required: false
-    default: '--capabilities CAPABILITY_IAM'
-    description: 'The CloudFormation arguments to pass to the command (e.g. "--capabilities CAPABILITY_IAM")'
+    description: 'The CloudFormation template to deploy (e.g. "file path" or "bucket URL")'
+  cloudformation-custom-stack-name:
+    required: false
+    description: 'The CloudFormation stack name to deploy (e.g. "aws-cloudformation-stack")'
+  cloudformation-custom-role-arn:
+    required: false
+    description: 'The CloudFormation role ARN to deploy (e.g. "arn:aws:iam::123456789012:role/aws-cloudformation-role")'
+  
   
 outputs:
   aws-function:
