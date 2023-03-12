@@ -6,7 +6,7 @@ import * as cloudformation from './modules/cloudformation.js';
 async function run() {
   try {
     // Get the inputs
-    const { technology, awsFunction, awsRegion, terraformCMD, terraformArgs } = await inputs.getInpus();
+    const { technology, awsFunction, awsRegion, terraformCMD, terraformArgs } = inputs.getInpus();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);

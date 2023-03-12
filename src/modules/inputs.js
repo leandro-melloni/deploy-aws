@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
 
-export async function getInpus(){
+async function getInpus(){
     const technology = core.getInput('technology', { required: true }).toLowerCase();
     const awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
     const awsRegion = core.getInput('aws-region', { required: true }).toLowerCase();
@@ -14,4 +14,8 @@ export async function getInpus(){
         terraformCMD,
         terraformArgs
     }
+}
+
+module.exports = {
+    getInpus
 }
