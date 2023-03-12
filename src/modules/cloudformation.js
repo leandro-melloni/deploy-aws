@@ -1,13 +1,8 @@
-import * as aws from "aws-sdk";
 
-async function activateType(awsRegion) {
+export async function activateType(awsRegion) {
     try {
-        return "Type activated";
+        return awsRegion;
     } catch (err) {
         throw new Error(err);
     }
 } 
-
-module.exports = {
-    activateType
-}
