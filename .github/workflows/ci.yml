@@ -19,10 +19,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: .github/actions/deploy-aws
-      - name: Deploy AWS
+      - name: Deploy AWS - Terraform
         uses: ./.github/actions/deploy-aws
         with:
           technology: 'IAC'
           aws-function: 'Terraform'
           terraform-cmd: 'init'
           terraform-args: ''
+      - name: Deploy AWS - CloudFormation
+        uses: ./.github/actions/deploy-aws
+        with:
+          technology: 'IAC'
+          aws-function: 'CloudFormation'
+          cloudformation-cmd: 'deploy'
+          cloudformation-args: '--capabilities CAPABILITY_IAM'

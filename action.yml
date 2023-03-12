@@ -7,6 +7,9 @@ inputs:
   aws-function:
     description: 'The AWS function to deploy (e.g. "EC2", "Lambda", "S3", Terraform, CloudFormation, etc.)'
     required: true
+  aws-region:
+    description: 'The AWS region to deploy to (e.g. "us-east-1", "us-east-2", etc.)'
+    required: true
   terraform-cmd:
     required: false
     default: 'plan'
@@ -15,6 +18,14 @@ inputs:
     required: false
     default: '-var-file=terraform.tfvars'
     description: 'The Terraform arguments to pass to the command (e.g. "-var-file=terraform.tfvars")'
+  cloudformation-cmd:
+    required: false
+    default: 'deploy'
+    description: 'The CloudFormation command to run (e.g. "deploy", "create", "update", "delete", etc.)'
+  cloudformation-args:
+    required: false
+    default: '--capabilities CAPABILITY_IAM'
+    description: 'The CloudFormation arguments to pass to the command (e.g. "--capabilities CAPABILITY_IAM")'
   
 outputs:
   aws-function:

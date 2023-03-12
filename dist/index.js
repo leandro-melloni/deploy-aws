@@ -2200,7 +2200,7 @@ async function invokeTerraform(terraformCMD, terraformArgs) {
     return stdout;
   }catch (err) {
       throw new Error(err);
-  };
+  }
 }
 
 module.exports = {
@@ -2545,6 +2545,7 @@ async function run() {
     // Get inputs
     const technology = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('technology', { required: true }).toLowerCase();
     const awsFunction = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('aws-function', { required: true }).toLowerCase();
+    const awsRegion = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('aws-region', { required: true }).toLowerCase();
     const terraformCMD = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-cmd').toLowerCase();
     const terraformArgs = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('terraform-args').toLowerCase();
 
@@ -2554,7 +2555,8 @@ async function run() {
         await _modules_terraform_js__WEBPACK_IMPORTED_MODULE_1__.invokeTerraform(terraformCMD, terraformArgs);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else if (awsFunction == 'cloudformation') {
-        console.log('Finished ' + technology + ' with ' + awsFunction);
+
+        console.log('Finished ' + technology + ' with ' + awsFunction + awsRegion);
       } else {
         throw new Error('Invalid aws-function input');
       }

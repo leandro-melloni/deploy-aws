@@ -14,7 +14,7 @@ async function invokeTerraform(terraformCMD, terraformArgs) {
     return stdout;
   }catch (err) {
       throw new Error(err);
-  };
+  }
 }
 
 module.exports = {

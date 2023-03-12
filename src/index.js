@@ -6,6 +6,7 @@ async function run() {
     // Get inputs
     const technology = core.getInput('technology', { required: true }).toLowerCase();
     const awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
+    const awsRegion = core.getInput('aws-region', { required: true }).toLowerCase();
     const terraformCMD = core.getInput('terraform-cmd').toLowerCase();
     const terraformArgs = core.getInput('terraform-args').toLowerCase();
 
@@ -15,7 +16,8 @@ async function run() {
         await terraform.invokeTerraform(terraformCMD, terraformArgs);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else if (awsFunction == 'cloudformation') {
-        console.log('Finished ' + technology + ' with ' + awsFunction);
+
+        console.log('Finished ' + technology + ' with ' + awsFunction + awsRegion);
       } else {
         throw new Error('Invalid aws-function input');
       }
