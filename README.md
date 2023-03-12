@@ -42,4 +42,3 @@ jobs:
           aws-function: 'Terraform'
           terraform-cmd: 'init'
           terraform-args: ''
-```

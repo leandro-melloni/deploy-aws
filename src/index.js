@@ -1,14 +1,12 @@
 import * as core from '@actions/core';
+import * as inputs from './modules/inputs.js';
 import * as terraform from './modules/terraform.js';
+import * as cloudformation from './modules/cloudformation.js';
 
 async function run() {
   try {
-    // Get inputs
-    const technology = core.getInput('technology', { required: true }).toLowerCase();
-    const awsFunction = core.getInput('aws-function', { required: true }).toLowerCase();
-    const awsRegion = core.getInput('aws-region', { required: true }).toLowerCase();
-    const terraformCMD = core.getInput('terraform-cmd').toLowerCase();
-    const terraformArgs = core.getInput('terraform-args').toLowerCase();
+    // Get the inputs
+    const { technology, awsFunction, awsRegion, terraformCMD, terraformArgs } = await inputs.getInpus();
 
     if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
       console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
@@ -16,8 +14,8 @@ async function run() {
         await terraform.invokeTerraform(terraformCMD, terraformArgs);
         console.log('Finished ' + technology + ' with ' + awsFunction);
       } else if (awsFunction == 'cloudformation') {
-
-        console.log('Finished ' + technology + ' with ' + awsFunction + awsRegion);
+        await cloudformation.activateType(awsRegion);
+        console.log('Finished ' + technology + ' with ' + awsFunction);
       } else {
         throw new Error('Invalid aws-function input');
       }
