@@ -4,7 +4,7 @@ on:
       - main
 
 jobs:
-  deploy-aws:
+  deploy-aws-terraform:
     runs-on: ubuntu-latest
     steps:
       - name: Install Node
@@ -26,6 +26,20 @@ jobs:
           aws-function: 'Terraform'
           terraform-cmd: 'init'
           terraform-args: ''
+      - name: Deploy AWS - CloudFormation
+        uses: ./.github/actions/deploy-aws
+        with:
+          technology: 'IAC'
+          aws-function: 'CloudFormation'
+          cloudformation-cmd: 'deploy'
+          cloudformation-args: '--capabilities CAPABILITY_IAM'
+  deploy-aws-cloudformation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: .github/actions/deploy-aws
       - name: Deploy AWS - CloudFormation
         uses: ./.github/actions/deploy-aws
         with:
