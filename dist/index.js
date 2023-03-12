@@ -40,7 +40,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(917);
+/******/ 		return __webpack_require__(351);
 /******/ 	};
 /******/ 	// initialize runtime
 /******/ 	runtime(__webpack_require__);
@@ -828,6 +828,92 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = '00000000-0000-0000-0000-000000000000';
 exports.default = _default;
+
+/***/ }),
+
+/***/ 351:
+/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __webpack_require__(470);
+
+// CONCATENATED MODULE: ./src/modules/inputs.js
+
+
+async function getInputs() {
+    try {
+        // Get inputs
+        const technology = Object(core.getInput)('technology', { required: true }).toLowerCase();
+        const awsFunction = Object(core.getInput)('aws-function', { required: true }).toLowerCase();
+        const awsRegion = Object(core.getInput)('aws-region', { required: true }).toLowerCase();
+        const terraformCMD = Object(core.getInput)('terraform-cmd').toLowerCase();
+        const terraformArgs = Object(core.getInput)('terraform-args').toLowerCase();
+
+        return {
+            technology,
+            awsFunction,
+            awsRegion,
+            terraformCMD,
+            terraformArgs
+        };
+    } catch (error) {
+        Object(core.setFailed)(error.message);
+    }
+}
+// EXTERNAL MODULE: ./src/modules/terraform.js
+var terraform = __webpack_require__(612);
+
+// CONCATENATED MODULE: ./src/modules/cloudformation.js
+
+async function activateType(awsRegion) {
+    try {
+        return awsRegion;
+    } catch (err) {
+        throw new Error(err);
+    }
+} 
+
+// CONCATENATED MODULE: ./src/index.js
+
+
+
+
+
+async function run() {
+  try {
+    // Get inputs
+    const { technology, awsFunction, awsRegion, terraformCMD, terraformArgs } = await getInputs();
+
+    if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
+      console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
+      if (awsFunction == 'terraform') {
+        await Object(terraform.invokeTerraform)(terraformCMD, terraformArgs);
+        console.log('Finished ' + technology + ' with ' + awsFunction);
+      } else if (awsFunction == 'cloudformation') {
+        await activateType(awsRegion);
+        console.log('Finished ' + technology + ' with ' + awsFunction);
+      } else {
+        throw new Error('Invalid aws-function input');
+      }
+    } else {    
+        throw new Error('Invalid technology or aws-function input');
+    }
+
+    // Get the function name
+    // core.setOutput('aws-function', awsFunction);
+    console.log("A tecnologia usada e: " + technology);
+    console.log("A funcao usada e: " + awsFunction);
+  }
+  catch (error) {
+    Object(core.setFailed)(error.message);
+  }
+}
+
+run();
+
 
 /***/ }),
 
@@ -2863,80 +2949,6 @@ function v1(options, buf, offset) {
 
 var _default = v1;
 exports.default = _default;
-
-/***/ }),
-
-/***/ 917:
-/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __webpack_require__(470);
-
-// CONCATENATED MODULE: ./src/modules/inputs.js
-
-
-async function getInputs() {
-    try {
-        // Get inputs
-        const technology = Object(core.getInput)('technology', { required: true }).toLowerCase();
-        const awsFunction = Object(core.getInput)('aws-function', { required: true }).toLowerCase();
-        const awsRegion = Object(core.getInput)('aws-region', { required: true }).toLowerCase();
-        const terraformCMD = Object(core.getInput)('terraform-cmd').toLowerCase();
-        const terraformArgs = Object(core.getInput)('terraform-args').toLowerCase();
-
-        return {
-            technology,
-            awsFunction,
-            awsRegion,
-            terraformCMD,
-            terraformArgs
-        };
-    } catch (error) {
-        Object(core.setFailed)(error.message);
-    }
-}
-// EXTERNAL MODULE: ./src/modules/terraform.js
-var terraform = __webpack_require__(612);
-
-// CONCATENATED MODULE: ./src/index.js
-
-
-
-
-async function run() {
-  try {
-    // Get inputs
-    const { technology, awsFunction, awsRegion, terraformCMD, terraformArgs } = await getInputs();
-
-    if (technology == 'iac' && awsFunction == 'terraform' || technology == 'iac' &&  awsFunction == 'cloudformation') {
-      console.log('Valid configuration, inicitalizing ' + technology + ' with ' + awsFunction);
-      if (awsFunction == 'terraform') {
-        await Object(terraform.invokeTerraform)(terraformCMD, terraformArgs);
-        console.log('Finished ' + technology + ' with ' + awsFunction);
-      } else if (awsFunction == 'cloudformation') {
-        console.log('Finished ' + technology + ' with ' + awsFunction);
-      } else {
-        throw new Error('Invalid aws-function input');
-      }
-    } else {    
-        throw new Error('Invalid technology or aws-function input');
-    }
-
-    // Get the function name
-    // core.setOutput('aws-function', awsFunction);
-    console.log("A tecnologia usada e: " + technology);
-    console.log("A funcao usada e: " + awsFunction);
-  }
-  catch (error) {
-    Object(core.setFailed)(error.message);
-  }
-}
-
-run();
-
 
 /***/ })
 
